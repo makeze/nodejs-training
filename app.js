@@ -1,6 +1,18 @@
 const getNotes = require('./notes-app/notes');
 console.log(getNotes());
 
-if(process.argv[2]){
-    console.log("User input: "+process.argv[2]);
+const command = process.argv[2];
+let output = "User command: ";
+
+switch (command) {
+    case 'add':
+        output += command;
+        break;
+    case 'remove':
+        output += command;
+        break;
+    default:
+        output += "not supported";
 }
+
+console.log(output);
