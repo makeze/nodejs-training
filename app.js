@@ -1,7 +1,7 @@
-const getNotes = require('./notes-app/notes');
+const noteUtils = require('./notes-app/notes');
 const yargs = require('yargs');
 
-console.log(getNotes());
+console.log(noteUtils.getNotes());
 
 const command = process.argv[2];
 let output = "User command: ";
@@ -24,8 +24,7 @@ yargs.command({
         }
     },
     handler: function(argv) {
-        console.log('Title: ' + argv.title);
-        console.log('Body: ' + argv.body);
+        noteUtils.addNote(argv.title, argv.body);
     }
 });
 
