@@ -5,11 +5,15 @@ const app = express();
 const publicDirectory = path.join(__dirname, 'public');
 const viewsPath = path.join(__dirname, 'templates');
 
+// define paths for express config
 console.log(__dirname);
 console.log(path.join(__dirname, '/public'));
 
+// setup handlebars
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
+
+// setup static directory
 app.use(express.static(publicDirectory));
 
 app.get('', (req, res) => {
