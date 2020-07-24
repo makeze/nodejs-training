@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <link rel="icon" href="/img/title-icon.png">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    {{>header}}
-    <p>Well that's a bumer... {{errorMessage}}</p>
+    <div class="main-content">
+        {{>header}}
+        <p>Well that's a bumer... {{errorMessage}}</p>
+    </div>
     {{>footer}}
 </body>
 </html>

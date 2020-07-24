@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/img/title-icon.png">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    {{>header}}
-    <h1>{{helpMessage}}</h1>
+    <div class="main-content">
+        {{>header}}
+        <p>{{helpMessage}}</p>
+    </div>
     {{>footer}}
 </body>
 </html>
