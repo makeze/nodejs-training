@@ -54,6 +54,22 @@ app.get('/weather', ((req, res) => {
     );
 }));
 
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Max Gana',
+        errorMessage: 'Help article was not found'
+    });
+});
+
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Max Gana',
+        errorMessage: 'Could not find a page you are looking for'
+    });
+});
+
 app.listen(port, () => {
    console.log("Server listening on port: "+port);
 });
