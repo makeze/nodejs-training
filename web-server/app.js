@@ -39,6 +39,7 @@ app.get('/about', (req, res) => {
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help',
+        name: 'Max Gana',
         helpMessage: 'Here be help page in future'
     });
 });
