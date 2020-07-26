@@ -14,8 +14,9 @@ console.log(type);
 console.log(extras);
 console.log(timestamp);
 
-const operation = (objectType, { name, extras }) => {
+const operation = (objectType, { name = 'name', extras='extras' } = {}) => {
     console.log(objectType, name, extras);
 };
 
 operation('read', objectExample);
+operation('read');
