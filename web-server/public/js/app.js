@@ -2,6 +2,9 @@ console.log('Client side loaded');
 
 const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
+const messageOne = document.querySelector('#message-1');
+
+messageOne.textContent = 'From JavaScript';
 
 weatherForm.addEventListener('submit', (e) => {
     e.preventDefault();
