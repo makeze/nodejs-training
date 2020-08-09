@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const Task = mongoose.model('Task', {
     description: {
@@ -12,4 +12,4 @@ const Task = mongoose.model('Task', {
     }
 })
 
-module.exports = Task
+module.exports = Task;
