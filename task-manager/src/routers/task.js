@@ -1,7 +1,8 @@
 const express = require('express');
 const router = new express.Router();
+const Task = require('../models/task');
 
-app.post('/tasks', async (req, res) => {
+router.post('/tasks', async (req, res) => {
     const task = new Task(req.body);
     try {
         await task.save();
@@ -12,7 +13,7 @@ app.post('/tasks', async (req, res) => {
 });
 
 
-app.get('/tasks', async (req, res) => {
+router.get('/tasks', async (req, res) => {
     try {
         const tasks = await Task.find();
         res.send(tasks);
@@ -21,7 +22,7 @@ app.get('/tasks', async (req, res) => {
     }
 });
 
-app.get('/tasks/:id', async (req, res) => {
+router.get('/tasks/:id', async (req, res) => {
     const _id = req.params.id;
 
     try {
