@@ -77,4 +77,4 @@ router.delete('/tasks/:id', async (req, res) => {
     }
 })
 
-module.exports = route
+module.exports = router
