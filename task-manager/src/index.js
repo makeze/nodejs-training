@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 require('./db/mongoose');
 const UserRouter = require('./routers/user')
 const TaskRouter = require('./routers/task')
@@ -12,6 +13,14 @@ app.use(TaskRouter);
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
+});
+
+const upload = multer({
+    dest: 'images'
+});
+
+app.post('/upload', upload.single('upload'), (req, res) => {
+    res.send();
 });
 
 const jwt = require('jsonwebtoken');

@@ -89,4 +89,8 @@ router.post('/users/login', async (req, res) => {
     }
 });
 
+app.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+    res.send();
+});
+
 module.exports = router;
