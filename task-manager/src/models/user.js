@@ -39,6 +39,9 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Age must be a postive number')
             }
         }
+    },
+    avatar: {
+        type: Buffer
     }
 });
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const User = require('../models/user');
 const router = new express.Router();
 
@@ -89,8 +90,24 @@ router.post('/users/login', async (req, res) => {
     }
 });
 
-app.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+const upload = multer({
+    dest: 'avatars',
+    limits: {
+        filesyze: 1000000
+    },
+    fileFilter(req, file, cb){
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Gimme the right file'));
+        }
+
+        cb(undefined, true);
+    }
+});
+
+router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send();
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
 });
 
 module.exports = router;
