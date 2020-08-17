@@ -110,4 +110,10 @@ router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.status(400).send({ error: error.message });
 });
 
+router.post('/users/:id/avatar', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+    }
+});
+
 module.exports = router;
