@@ -7,12 +7,16 @@ const TaskRouter = require('./routers/task')
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+    res.status(503).send("Website is under maintenance.");
+});
+
 app.use(express.json());
 app.use(UserRouter);
 app.use(TaskRouter);
 
 app.listen(port, () => {
-    console.log('Server is up on port ' + port)
+    console.log('Server is up on port ' + port);
 });
 
 const upload = multer({
