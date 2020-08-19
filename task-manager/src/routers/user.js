@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const auth = require('../middleware/auth');
 const User = require('../models/user');
 const router = new express.Router();
 
@@ -14,7 +15,7 @@ router.post('/users', async (req, res) => {
     }
 });
 
-router.get('/users', async (req, res) => {
+router.get('/users', auth, async (req, res) => {
     try {
         const users = await User.find({});
         res.send(users)
@@ -101,6 +102,17 @@ const upload = multer({
         }
 
         cb(undefined, true);
+    }
+});
+
+router.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        });
+        await req.user.save();
+    } catch (e) {
+        res.status(500).send();
     }
 });
 

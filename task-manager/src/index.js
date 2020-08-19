@@ -7,10 +7,6 @@ const TaskRouter = require('./routers/task')
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use((req, res, next) => {
-    res.status(503).send("Website is under maintenance.");
-});
-
 app.use(express.json());
 app.use(UserRouter);
 app.use(TaskRouter);
@@ -40,15 +36,3 @@ app.post('/upload', upload.single('upload'), async (req, res) => {
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message });
 });
-
-const jwt = require('jsonwebtoken');
-
-/*const myFunction = async () => {
-    const token = jwt.sign({ _id: 'some' }, '25252525');
-    console.log(token);
-
-    const data = jwt.verify(token, '25252525');
-    console.log(data);
-};*/
-
-// myFunction();
