@@ -14,7 +14,9 @@ document.querySelector('#sendMessage').addEventListener('click', () => {
     let messageText = document.getElementById('messageText').value;
     document.getElementById('messageText').value = '';
     console.log(messageText);
-    socket.emit('sendMessage', messageText);
+    socket.emit('sendMessage', messageText, (message) => {
+        console.log('Message was delivered', message);
+    });
 });
 
 document.querySelector('#sendLocation').addEventListener('click', () => {

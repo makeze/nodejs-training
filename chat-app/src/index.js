@@ -27,9 +27,10 @@ io.on('connection', (socket) => {
     // });
     socket.emit('message', 'Welcome!');
     socket.broadcast.emit('message', 'A new user has joined!');
-    socket.on('sendMessage', (message) => {
+
+    socket.on('sendMessage', (message, callback) => {
         io.emit('message', message);
-        console.log(message);
+        callback('Delivered!');
     });
     socket.on('sendLocation', (location) => {
         io.emit('message', `https://google.com/maps?q=${location.latitude},${location.longitude}`);
