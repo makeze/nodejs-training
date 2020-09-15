@@ -14,8 +14,11 @@ document.querySelector('#sendMessage').addEventListener('click', () => {
     let messageText = document.getElementById('messageText').value;
     document.getElementById('messageText').value = '';
     console.log(messageText);
-    socket.emit('sendMessage', messageText, (message) => {
-        console.log('Message was delivered', message);
+    socket.emit('sendMessage', messageText, (error) => {
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message was delivered');
     });
 });
 
@@ -26,9 +29,15 @@ document.querySelector('#sendLocation').addEventListener('click', () => {
     navigator.geolocation.getCurrentPosition((position) => {
        console.log(position.coords.latitude);
        console.log(position.coords.longitude);
-       socket.emit('sendLocation', {
+       let locationData = {
            latitude: position.coords.latitude,
            longitude: position.coords.longitude
+       };
+       socket.emit('sendLocation', locationData, (error) => {
+           if(error){
+               return console.log(error);
+           }
+           console.log('Location shared!');
        });
     });
 });

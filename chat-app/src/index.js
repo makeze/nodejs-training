@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
+const Filter = require('bad-words');
 
 const app = express();
 const server = http.createServer(app);
@@ -29,11 +30,20 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message', 'A new user has joined!');
 
     socket.on('sendMessage', (message, callback) => {
+        const wordFilter = new Filter();
+
+        if(wordFilter.isProfane(message)){
+            return callback('Contains forbidden words!');
+        }
         io.emit('message', message);
-        callback('Delivered!');
+        callback();
     });
-    socket.on('sendLocation', (location) => {
+    socket.on('sendLocation', (location, callback) => {
+        if(!(location.latitude && location.longitude)){
+            callback('Some of the parameters are missing!');
+        }
         io.emit('message', `https://google.com/maps?q=${location.latitude},${location.longitude}`);
+        callback();
     });
 
     socket.on('disconnect', () => {
