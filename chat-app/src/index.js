@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
         if(!(location.latitude && location.longitude)){
             callback('Some of the parameters are missing!');
         }
-        io.emit('message', `https://google.com/maps?q=${location.latitude},${location.longitude}`);
+        io.emit('locationMessage', `https://google.com/maps?q=${location.latitude},${location.longitude}`);
         callback();
     });
 
