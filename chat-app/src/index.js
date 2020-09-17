@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const Filter = require('bad-words');
+const { generateMessage, generateLocationMessage } = require('./utils/messages');
 
 const app = express();
 const server = http.createServer(app);
@@ -26,28 +27,28 @@ io.on('connection', (socket) => {
     // socket.on('message', () => {
     //     socket.emit('Welcome');
     // });
-    socket.emit('message', 'Welcome!');
-    socket.broadcast.emit('message', 'A new user has joined!');
+    socket.emit('message', generateMessage('Welcome!'));
+    socket.broadcast.emit('message', generateMessage('A new user has joined!'));
 
     socket.on('sendMessage', (message, callback) => {
         const wordFilter = new Filter();
 
-        if(wordFilter.isProfane(message)){
-            return callback('Contains forbidden words!');
+        if(wordFilter.isProfane(message) || message.trim() === ''){
+            return callback('Contains forbidden words! Or empty');
         }
-        io.emit('message', message);
+        io.emit('message', generateMessage(message));
         callback();
     });
     socket.on('sendLocation', (location, callback) => {
         if(!(location.latitude && location.longitude)){
             callback('Some of the parameters are missing!');
         }
-        io.emit('locationMessage', `https://google.com/maps?q=${location.latitude},${location.longitude}`);
+        io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${location.latitude},${location.longitude}`));
         callback();
     });
 
     socket.on('disconnect', () => {
-       io.emit('message', 'A user has left!');
+       io.emit('message', generateMessage('A user has left!'));
     });
 });
 
