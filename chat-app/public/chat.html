@@ -8,7 +8,7 @@
 <body>
 
 <div class="chat">
-    <div class="chat__sidebar"></div>
+    <div id="sidebar" class="chat__sidebar"></div>
     <div class="chat__main">
         <div id="messages" class="chat__messages"></div>
         <div class="compose">
@@ -38,6 +38,15 @@
         </p>
         <p><a href="{{locationUrl}}" target="_blank">My location on GoogleMaps</a></p>
     </div>
+</script>
+<script id="sidebarTemplate" type="text/html">
+    <h2 class="roomTitle">{{room}}</h2>
+    <h3 class="listTitle">Users</h3>
+    <ul class="users">
+        {{#users}}
+            <li>{{username}}</li>
+        {{/users}}
+    </ul>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
