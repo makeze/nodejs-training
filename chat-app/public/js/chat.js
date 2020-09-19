@@ -1,15 +1,4 @@
 const socket = io();
-
-/*
-socket.on('countUpdated', (count) => {
-   console.log('Count has been updated', count);
-});
-
-document.querySelector('#increment').addEventListener('click', () => {
-    console.log('incremented');
-    socket.emit('increment');
-});*/
-
 const $messageButton = document.querySelector('#sendMessage');
 const $messageText = document.getElementById('messageText');
 const $location = document.querySelector('#sendLocation');
@@ -18,8 +7,11 @@ const $messages = document.querySelector('#messages');
 const messageTemplate = document.querySelector('#messageTemplate').innerHTML;
 const locationTemplate = document.querySelector('#locationTemplate').innerHTML;
 
+const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
+
 socket.on('message', (message) => {
     const html = Mustache.render(messageTemplate, {
+        username: message.username,
         message: message.text,
         createdAt: moment(message.createdAt).format('HH:mm:ss')
     });
@@ -28,6 +20,7 @@ socket.on('message', (message) => {
 
 socket.on('locationMessage', (location) => {
     const html = Mustache.render(locationTemplate, {
+        username: location.username,
         locationUrl: location.locationUrl,
         createdAt: moment(location.createdAt).format('HH:mm:ss')
     });
@@ -66,4 +59,11 @@ $location.addEventListener('click', () => {
            console.log('Location shared!');
        });
     });
+});
+
+socket.emit('join', {username, room}, (error) => {
+    if(error){
+        alert(error);
+        location.href = '/';
+    }
 });
